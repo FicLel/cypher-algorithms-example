@@ -81,7 +81,7 @@ namespace CryptoProject
         public String[] GetRSAValues(XmlDocument doc) 
         {
             Console.WriteLine(doc.DocumentElement.OuterXml);
-            String path = "RSA/clave";
+            String path = "RSA/clavePrivada";
             XmlNode nodes = doc.SelectSingleNode(path);
             Console.WriteLine(nodes.InnerText);
 

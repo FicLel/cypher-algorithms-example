@@ -153,5 +153,18 @@ namespace CryptoProject
             }
 
         }
+
+        private void btnImportText_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog save = new OpenFileDialog();
+            save.Filter = "Text-File | *.txt";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                string text = System.IO.File.ReadAllText(save.FileName);
+                txtTextoEncriptado.Text = text;
+                // Display the file contents to the console. Variable text is a string.
+                System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+            }
+        }
     }
 }

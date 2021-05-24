@@ -52,6 +52,7 @@ namespace CryptoProject
             this.label6 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnExport = new System.Windows.Forms.Button();
+            this.btnImportText = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -153,6 +154,7 @@ namespace CryptoProject
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnImportText);
             this.panel2.Controls.Add(this.btnExport);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.txtDesencriptado);
@@ -164,9 +166,9 @@ namespace CryptoProject
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.txtText);
-            this.panel2.Location = new System.Drawing.Point(19, 260);
+            this.panel2.Location = new System.Drawing.Point(11, 260);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(701, 220);
+            this.panel2.Size = new System.Drawing.Size(705, 220);
             this.panel2.TabIndex = 10;
             // 
             // label3
@@ -272,6 +274,16 @@ namespace CryptoProject
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // btnImportText
+            // 
+            this.btnImportText.Location = new System.Drawing.Point(365, 181);
+            this.btnImportText.Name = "btnImportText";
+            this.btnImportText.Size = new System.Drawing.Size(322, 23);
+            this.btnImportText.TabIndex = 19;
+            this.btnImportText.Text = "Importar Texto";
+            this.btnImportText.UseVisualStyleBackColor = true;
+            this.btnImportText.Click += new System.EventHandler(this.btnImportText_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,6 +330,7 @@ namespace CryptoProject
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImportText;
     }
 }
 
