@@ -102,7 +102,12 @@ namespace CryptoProject
             XMLOperations export = new XMLOperations();
             if (cmbAlgoritmos.SelectedIndex == 1)
             {
-                export.RSAXMLKeys(xml);
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "XML-File | *.xml";
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    export.ExportXML(export.RSAXMLKeys(xml), save.FileName);
+                }
             }
             else if (cmbAlgoritmos.SelectedIndex == 0)
             {

@@ -9,11 +9,24 @@ namespace CryptoProject
 {
     class XMLOperations
     {
-        public void RSAXMLKeys(String xml) 
+        public XmlDocument RSAXMLKeys(String xml) 
         {
             Console.WriteLine(xml);
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
+            String tempString = xml;
+            tempString = xml;
+            Console.WriteLine(tempString);
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+            XmlNode root = doc.CreateElement("TDES");
+            XmlNode key = doc.CreateElement("clave");
+            key.InnerText = tempString;
+            XmlNode keyPrivate = doc.CreateElement("clavePrivada");
+            keyPrivate.InnerText = tempString;
+            root.AppendChild(key);
+            root.AppendChild(keyPrivate);
+            doc.AppendChild(root);
+            /*doc.LoadXml(xml);
             String path = "RSAKeyValue";
             XmlNodeList nodes = doc.SelectNodes(path);
             XmlNode nodePublic = doc.SelectSingleNode("RSAKeyValue/Modulus");
@@ -21,7 +34,8 @@ namespace CryptoProject
             Console.WriteLine(nodes.Count);
             Console.WriteLine(nodePublic.InnerText);
             Console.WriteLine(nodePrivate.InnerText);
-            //Console.WriteLine(nodes.Item(7).InnerText);
+            //Console.WriteLine(nodes.Item(7).InnerText);*/
+            return doc;
         }
 
         public XmlDocument TDESKey(String keyText) 
