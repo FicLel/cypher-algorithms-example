@@ -83,12 +83,18 @@ namespace CryptoProject
             Console.WriteLine(doc.DocumentElement.OuterXml);
             String path = "RSA/clave";
             XmlNode nodes = doc.SelectSingleNode(path);
-            Console.WriteLine(nodes.OuterXml);
-            XmlNode nodePublic = doc.SelectSingleNode("clave/RSAKeyValue/Modulus");
-            //Console.WriteLine(nodePublic.Value);
-            XmlNode nodePrivate = doc.SelectSingleNode("clave/RSAKeyValue/D");
-            //Console.Write(nodePrivate.Value);
-            String[] data = {"","",""};
+            Console.WriteLine(nodes.InnerText);
+
+            XmlDocument newDoc = new XmlDocument();
+            newDoc.LoadXml(nodes.InnerText);
+            String keysPath = "RSAKeyValue";
+            XmlNodeList keysnodes = newDoc.SelectNodes(keysPath);
+            XmlNode nodePublic = newDoc.SelectSingleNode("RSAKeyValue/Modulus");
+            XmlNode nodePrivate = newDoc.SelectSingleNode("RSAKeyValue/D");
+            Console.WriteLine(nodePublic.InnerText);
+            Console.WriteLine(nodePrivate.InnerText);
+
+            String[] data = {nodePublic.InnerText, nodePrivate.InnerText, nodes.InnerText};
             return data;
         }
 

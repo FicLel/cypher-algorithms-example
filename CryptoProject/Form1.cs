@@ -145,7 +145,10 @@ namespace CryptoProject
                 }
                 else if (cmbAlgoritmos.SelectedIndex == 1)
                 {
-                    import.GetRSAValues(import.ImportXML(save.FileName));
+                    String[] data = import.GetRSAValues(import.ImportXML(save.FileName));
+                    xml = data[2];
+                    txtClave.Text = data[1];
+                    txtClavePublica.Text = data[0];
                 }
             }
 
