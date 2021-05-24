@@ -119,5 +119,36 @@ namespace CryptoProject
                 }
             }
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            XMLOperations export = new XMLOperations();
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Text-File | *.txt";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                export.ExportEncriptedText(txtResultado.Text, save.FileName);
+            }
+        }
+
+        private void btnImportKeys_Click(object sender, EventArgs e)
+        {
+            XMLOperations import = new XMLOperations();
+            OpenFileDialog save = new OpenFileDialog();
+            save.Filter = "XML-File | *.xml";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine(save.FileName);
+                if (cmbAlgoritmos.SelectedIndex == 0)
+                {
+                   txtClave.Text = import.GetTDESKey(import.ImportXML(save.FileName));
+                }
+                else if (cmbAlgoritmos.SelectedIndex == 1)
+                {
+                    import.GetRSAValues(import.ImportXML(save.FileName));
+                }
+            }
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace CryptoProject
             Console.WriteLine(tempString);
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
             doc.AppendChild(docNode);
-            XmlNode root = doc.CreateElement("TDES");
+            XmlNode root = doc.CreateElement("RSA");
             XmlNode key = doc.CreateElement("clave");
             key.InnerText = tempString;
             XmlNode keyPrivate = doc.CreateElement("clavePrivada");
@@ -60,6 +61,51 @@ namespace CryptoProject
             {
                 writer.Formatting = Formatting.Indented;
                 doc.Save(writer);
+            }
+        }
+
+        public XmlDocument ImportXML(String path) {
+            Console.WriteLine(path);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+            Console.WriteLine(doc.ToString());
+            return doc;
+        }
+
+        public String GetTDESKey(XmlDocument doc) 
+        {
+            return doc.InnerText;
+        }
+
+        public String[] GetRSAValues(XmlDocument doc) 
+        {
+            Console.WriteLine(doc.DocumentElement.OuterXml);
+            String path = "RSA/clave";
+            XmlNode nodes = doc.SelectSingleNode(path);
+            Console.WriteLine(nodes.OuterXml);
+            XmlNode nodePublic = doc.SelectSingleNode("clave/RSAKeyValue/Modulus");
+            //Console.WriteLine(nodePublic.Value);
+            XmlNode nodePrivate = doc.SelectSingleNode("clave/RSAKeyValue/D");
+            //Console.Write(nodePrivate.Value);
+            String[] data = {"","",""};
+            return data;
+        }
+
+        public void ExportEncriptedText(String text, String path) 
+        {
+            try
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(path);
+                //Write a line of text
+                sw.WriteLine(text);
+                //Close the file
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
             }
         }
         

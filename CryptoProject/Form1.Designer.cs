@@ -35,7 +35,7 @@ namespace CryptoProject
             this.txtClavePublica = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnImportKeys = new System.Windows.Forms.Button();
             this.btnExportKeys = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtText = new System.Windows.Forms.TextBox();
@@ -51,6 +51,7 @@ namespace CryptoProject
             this.cmbAlgoritmos = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnExport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -102,20 +103,21 @@ namespace CryptoProject
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 13);
+            this.label2.Location = new System.Drawing.Point(3, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Texto";
             // 
-            // button1
+            // btnImportKeys
             // 
-            this.button1.Location = new System.Drawing.Point(594, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnImportKeys.Location = new System.Drawing.Point(594, 15);
+            this.btnImportKeys.Name = "btnImportKeys";
+            this.btnImportKeys.Size = new System.Drawing.Size(100, 23);
+            this.btnImportKeys.TabIndex = 6;
+            this.btnImportKeys.Text = "Importar Llaves";
+            this.btnImportKeys.UseVisualStyleBackColor = true;
+            this.btnImportKeys.Click += new System.EventHandler(this.btnImportKeys_Click);
             // 
             // btnExportKeys
             // 
@@ -133,7 +135,7 @@ namespace CryptoProject
             this.panel1.Controls.Add(this.txtClave);
             this.panel1.Controls.Add(this.btnExportKeys);
             this.panel1.Controls.Add(this.btnGenerar);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnImportKeys);
             this.panel1.Controls.Add(this.lblClave1);
             this.panel1.Controls.Add(this.txtClavePublica);
             this.panel1.Controls.Add(this.label1);
@@ -144,13 +146,14 @@ namespace CryptoProject
             // 
             // txtText
             // 
-            this.txtText.Location = new System.Drawing.Point(6, 29);
+            this.txtText.Location = new System.Drawing.Point(6, 44);
             this.txtText.Name = "txtText";
             this.txtText.Size = new System.Drawing.Size(323, 20);
             this.txtText.TabIndex = 9;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnExport);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.txtDesencriptado);
             this.panel2.Controls.Add(this.txtTextoEncriptado);
@@ -161,15 +164,15 @@ namespace CryptoProject
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.txtText);
-            this.panel2.Location = new System.Drawing.Point(15, 289);
+            this.panel2.Location = new System.Drawing.Point(19, 260);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(701, 173);
+            this.panel2.Size = new System.Drawing.Size(701, 220);
             this.panel2.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 65);
+            this.label3.Location = new System.Drawing.Point(3, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 10;
@@ -177,14 +180,14 @@ namespace CryptoProject
             // 
             // txtResultado
             // 
-            this.txtResultado.Location = new System.Drawing.Point(6, 92);
+            this.txtResultado.Location = new System.Drawing.Point(6, 107);
             this.txtResultado.Name = "txtResultado";
             this.txtResultado.Size = new System.Drawing.Size(323, 20);
             this.txtResultado.TabIndex = 11;
             // 
             // btnEncriptar
             // 
-            this.btnEncriptar.Location = new System.Drawing.Point(6, 137);
+            this.btnEncriptar.Location = new System.Drawing.Point(6, 152);
             this.btnEncriptar.Name = "btnEncriptar";
             this.btnEncriptar.Size = new System.Drawing.Size(323, 23);
             this.btnEncriptar.TabIndex = 12;
@@ -194,7 +197,7 @@ namespace CryptoProject
             // 
             // btnDesecnriptar
             // 
-            this.btnDesecnriptar.Location = new System.Drawing.Point(365, 137);
+            this.btnDesecnriptar.Location = new System.Drawing.Point(365, 152);
             this.btnDesecnriptar.Name = "btnDesecnriptar";
             this.btnDesecnriptar.Size = new System.Drawing.Size(323, 23);
             this.btnDesecnriptar.TabIndex = 13;
@@ -205,7 +208,7 @@ namespace CryptoProject
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(362, 13);
+            this.label4.Location = new System.Drawing.Point(362, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 14;
@@ -213,14 +216,14 @@ namespace CryptoProject
             // 
             // txtTextoEncriptado
             // 
-            this.txtTextoEncriptado.Location = new System.Drawing.Point(365, 28);
+            this.txtTextoEncriptado.Location = new System.Drawing.Point(365, 43);
             this.txtTextoEncriptado.Name = "txtTextoEncriptado";
             this.txtTextoEncriptado.Size = new System.Drawing.Size(323, 20);
             this.txtTextoEncriptado.TabIndex = 15;
             // 
             // txtDesencriptado
             // 
-            this.txtDesencriptado.Location = new System.Drawing.Point(365, 92);
+            this.txtDesencriptado.Location = new System.Drawing.Point(365, 107);
             this.txtDesencriptado.Name = "txtDesencriptado";
             this.txtDesencriptado.Size = new System.Drawing.Size(323, 20);
             this.txtDesencriptado.TabIndex = 16;
@@ -228,7 +231,7 @@ namespace CryptoProject
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(365, 73);
+            this.label5.Location = new System.Drawing.Point(365, 88);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 17;
@@ -259,11 +262,21 @@ namespace CryptoProject
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(6, 182);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(323, 23);
+            this.btnExport.TabIndex = 18;
+            this.btnExport.Text = "Exportar Texto";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 474);
+            this.ClientSize = new System.Drawing.Size(725, 492);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbAlgoritmos);
             this.Controls.Add(this.panel2);
@@ -288,7 +301,7 @@ namespace CryptoProject
         private System.Windows.Forms.RichTextBox txtClavePublica;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnImportKeys;
         private System.Windows.Forms.Button btnExportKeys;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtText;
@@ -304,6 +317,7 @@ namespace CryptoProject
         private System.Windows.Forms.ComboBox cmbAlgoritmos;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 
