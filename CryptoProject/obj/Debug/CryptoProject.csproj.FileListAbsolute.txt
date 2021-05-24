@@ -1,0 +1,10 @@
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\bin\Debug\CryptoProject.exe.config
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\bin\Debug\CryptoProject.exe
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\bin\Debug\CryptoProject.pdb
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.csprojAssemblyReference.cache
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.Form1.resources
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.Properties.Resources.resources
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.csproj.GenerateResource.cache
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.csproj.CoreCompileInputs.cache
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.exe
+C:\Users\victo\source\repos\CryptoProject\CryptoProject\obj\Debug\CryptoProject.pdb
