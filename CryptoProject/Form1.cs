@@ -48,10 +48,10 @@ namespace CryptoProject
 
         public void encriptarRSA() 
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
             rsa.FromXmlString(xml);
-            byte[] text = Encoding.UTF8.GetBytes(txtText.Text);
-            byte[] result = rsa.Encrypt(text, true);
+            byte[] text = Encoding.ASCII.GetBytes(txtText.Text);
+            byte[] result = rsa.Encrypt(text, false);
             txtResultado.Text = Convert.ToBase64String(result);
         }
 
@@ -59,9 +59,10 @@ namespace CryptoProject
         {
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(xml);
+            RSAParameters key = rsa.ExportParameters(true);
             byte[] text = Convert.FromBase64String(txtTextoEncriptado.Text);
-            byte[] resultado =  rsa.Decrypt(text, true);
-            txtDesencriptado.Text = Encoding.UTF8.GetString(resultado);
+            byte[] resultado = new RSAOperations().RSADecrypt(text, key, false);
+            txtDesencriptado.Text = Encoding.Default.GetString(resultado);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -125,9 +126,11 @@ namespace CryptoProject
             XMLOperations export = new XMLOperations();
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Text-File | *.txt";
+            byte[] plainTextBytes = System.Text.Encoding.Default.GetBytes(txtResultado.Text);
+            string returnValue = System.Convert.ToBase64String(plainTextBytes);
             if (save.ShowDialog() == DialogResult.OK)
             {
-                export.ExportEncriptedText(txtResultado.Text, save.FileName);
+                export.ExportEncriptedText(returnValue, save.FileName);
             }
         }
 
@@ -161,7 +164,9 @@ namespace CryptoProject
             if (save.ShowDialog() == DialogResult.OK)
             {
                 string text = System.IO.File.ReadAllText(save.FileName);
-                txtTextoEncriptado.Text = text;
+                byte[] textAsBytes = Convert.FromBase64String(text);
+                string decodedText = Encoding.UTF8.GetString(textAsBytes);
+                txtTextoEncriptado.Text = decodedText;
                 // Display the file contents to the console. Variable text is a string.
                 System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
             }

@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RSAOperations.cs" />
     <Compile Include="TDES.cs" />
     <Compile Include="XMLOperations.cs" />
     <EmbeddedResource Include="Form1.resx">
