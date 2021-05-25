@@ -126,8 +126,12 @@ namespace CryptoProject
             XMLOperations export = new XMLOperations();
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Text-File | *.txt";
-            byte[] plainTextBytes = System.Text.Encoding.Default.GetBytes(txtResultado.Text);
-            string returnValue = System.Convert.ToBase64String(plainTextBytes);
+            string returnValue = txtResultado.Text;
+            if (cmbAlgoritmos.SelectedIndex == 1) {
+                byte[] plainTextBytes = System.Text.Encoding.Default.GetBytes(txtResultado.Text);
+                 returnValue = System.Convert.ToBase64String(plainTextBytes);
+             }
+            
             if (save.ShowDialog() == DialogResult.OK)
             {
                 export.ExportEncriptedText(returnValue, save.FileName);
@@ -161,11 +165,18 @@ namespace CryptoProject
         {
             OpenFileDialog save = new OpenFileDialog();
             save.Filter = "Text-File | *.txt";
+            string decodedText = "";
             if (save.ShowDialog() == DialogResult.OK)
             {
                 string text = System.IO.File.ReadAllText(save.FileName);
-                byte[] textAsBytes = Convert.FromBase64String(text);
-                string decodedText = Encoding.UTF8.GetString(textAsBytes);
+                if (cmbAlgoritmos.SelectedIndex == 1)
+                {
+                    byte[] textAsBytes = Convert.FromBase64String(text);
+                    decodedText = Encoding.UTF8.GetString(textAsBytes);
+                } else 
+                {
+                    decodedText = text;
+                }
                 txtTextoEncriptado.Text = decodedText;
                 // Display the file contents to the console. Variable text is a string.
                 System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
