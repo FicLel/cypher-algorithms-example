@@ -71,70 +71,102 @@ namespace CryptoProject
         }
 
         private void btnEncriptar_Click(object sender, EventArgs e)
-        {
-            if (cmbAlgoritmos.SelectedIndex == 0)
+        {   if (String.IsNullOrEmpty(txtText.Text))
             {
-                tdes = new TDES();
-                txtResultado.Text = tdes.encript(txtText.Text, txtClave.Text);
-            }
-            else if (cmbAlgoritmos.SelectedIndex == 1)
+                try
+                {
+                    if (cmbAlgoritmos.SelectedIndex == 0)
+                    {
+                        tdes = new TDES();
+                        txtResultado.Text = tdes.encript(txtText.Text, txtClave.Text);
+                    }
+                    else if (cmbAlgoritmos.SelectedIndex == 1)
+                    {
+                        encriptarRSA();
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Ocurrio un error al encriptar, revise los datos");
+                }
+            }   
+            else
             {
-                encriptarRSA();
+                MessageBox.Show("No se puede encriptar un mensaje vacio");
             }
-            
         }
 
         private void btnDesecnriptar_Click(object sender, EventArgs e)
         {
-            if (cmbAlgoritmos.SelectedIndex == 0)
+            try
             {
-                tdes = new TDES();
-                txtDesencriptado.Text = tdes.decript(txtClave.Text, txtTextoEncriptado.Text);
+                if (cmbAlgoritmos.SelectedIndex == 0)
+                {
+                    tdes = new TDES();
+                    txtDesencriptado.Text = tdes.decript(txtClave.Text, txtTextoEncriptado.Text);
+                }
+                else if (cmbAlgoritmos.SelectedIndex == 1)
+                {
+                    decriptRSA();
+                }
             }
-            else if (cmbAlgoritmos.SelectedIndex == 1)
+            catch (Exception ex) 
             {
-                decriptRSA();
+                MessageBox.Show("Algo salio mal, por favor revisar los datos que ha ingresado");
             }
-            
         }
 
         private void btnExportKeys_Click(object sender, EventArgs e)
         {
-            XMLOperations export = new XMLOperations();
-            if (cmbAlgoritmos.SelectedIndex == 1)
+            if (!String.IsNullOrWhiteSpace(txtClave.Text))
             {
-                SaveFileDialog save = new SaveFileDialog();
-                save.Filter = "XML-File | *.xml";
-                if (save.ShowDialog() == DialogResult.OK)
+                XMLOperations export = new XMLOperations();
+                if (cmbAlgoritmos.SelectedIndex == 1)
                 {
-                    export.ExportXML(export.RSAXMLKeys(xml), save.FileName);
+                    SaveFileDialog save = new SaveFileDialog();
+                    save.Filter = "XML-File | *.xml";
+                    if (save.ShowDialog() == DialogResult.OK)
+                    {
+                        export.ExportXML(export.RSAXMLKeys(xml), save.FileName);
+                    }
+                }
+                else if (cmbAlgoritmos.SelectedIndex == 0)
+                {
+                    SaveFileDialog save = new SaveFileDialog();
+                    save.Filter = "XML-File | *.xml";
+                    if (save.ShowDialog() == DialogResult.OK)
+                    {
+                        export.ExportXML(export.TDESKey(txtClave.Text), save.FileName);
+                    }
                 }
             }
-            else if (cmbAlgoritmos.SelectedIndex == 0)
+            else
             {
-                SaveFileDialog save = new SaveFileDialog();
-                save.Filter = "XML-File | *.xml";
-                if (save.ShowDialog() == DialogResult.OK)
-                {
-                    export.ExportXML(export.TDESKey(txtClave.Text), save.FileName);
-                }
+                MessageBox.Show("No se pueden exportan llaves vacias");
             }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            XMLOperations export = new XMLOperations();
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Text-File | *.txt";
-            string returnValue = txtResultado.Text;
-            if (cmbAlgoritmos.SelectedIndex == 1) {
-                byte[] plainTextBytes = System.Text.Encoding.Default.GetBytes(txtResultado.Text);
-                 returnValue = System.Convert.ToBase64String(plainTextBytes);
-             }
-            
-            if (save.ShowDialog() == DialogResult.OK)
+            if (!String.IsNullOrWhiteSpace(txtResultado.Text))
             {
-                export.ExportEncriptedText(returnValue, save.FileName);
+                XMLOperations export = new XMLOperations();
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "Text-File | *.txt";
+                string returnValue = txtResultado.Text;
+                if (cmbAlgoritmos.SelectedIndex == 1)
+                {
+                    byte[] plainTextBytes = System.Text.Encoding.Default.GetBytes(txtResultado.Text);
+                    returnValue = System.Convert.ToBase64String(plainTextBytes);
+                }
+
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    export.ExportEncriptedText(returnValue, save.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se puede exportar texto no encriptado");
             }
         }
 
@@ -181,6 +213,27 @@ namespace CryptoProject
                 // Display the file contents to the console. Variable text is a string.
                 System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
             }
+        }
+
+        private void cmbAlgoritmos_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Draw the background 
+            e.DrawBackground();
+
+            // Get the item text    
+            string text = (e.Index >= 0) ? ((ComboBox)sender).Items[e.Index].ToString() : "";
+
+            // Determine the forecolor based on whether or not the item is selected    
+            Brush brush = Brushes.White;
+            
+
+            // Draw the text    
+            e.Graphics.DrawString(text, ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
